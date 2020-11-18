@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../css/App.css';
 
 import SearchRestaurants from './SearchRestaurants';
+import AllRestaurants from './AllRestaurants';
 
 /**
  * App
@@ -56,6 +57,7 @@ class App extends React.Component {
 
     const { isLoaded, items } = this.state;
     console.log(items);
+    // A user should be able to see a table with the name, city, state, phone number, and genres for each restaurant.
     // address1: "201 Waterfront St"
     // attire: "business casual"
     // city: "Oxon Hill"
@@ -81,7 +83,7 @@ class App extends React.Component {
             <div className='col-mid-12 bg-white'>
               <div className='container'>
                 <SearchRestaurants />
-                <div>All Restaurants</div>
+                <AllRestaurants />
 
               </div>
             </div>
@@ -91,7 +93,7 @@ class App extends React.Component {
           <ul>
             {items.map(item => (
               <li key={item.id}>
-                Name: {item.name} | City: {item.city}
+                Name: {item.name} | City: {item.city} | State: {item.state} | Phone Number: {item.telephone} | Genre: {item.genre}
               </li>
             ))}
           </ul>
