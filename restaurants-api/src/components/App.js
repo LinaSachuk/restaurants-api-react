@@ -100,15 +100,7 @@ class App extends React.Component {
             </div>
           </div>
         </div>
-        <div className="App">
-          <ul>
-            {items.map(item => (
-              <li key={item.id}>
-                Name: {item.name} | City: {item.city} | State: {item.state} | Phone Number: {item.telephone} | Genre: {item.genre}
-              </li>
-            ))}
-          </ul>
-        </div>
+
       </main>
 
     );
