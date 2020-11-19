@@ -2,7 +2,19 @@ import React, { Component } from 'react';
 
 class AllRestaurants extends Component {
     render() {
-        return <div>All -- Restaurants</div>;
+        const listItems = this.props.restaurants.map(item => (
+
+            <div>
+                <div>{item.name}</div>
+                <div>{item.attire}</div>
+            </div>
+
+        ));
+
+
+
+
+        return <div>{listItems}</div>
     }
 }
 

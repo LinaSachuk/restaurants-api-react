@@ -36,15 +36,26 @@ class App extends React.Component {
       },
     })
       .then(res => res.json())
-      .then(json => {
-        this.setState({
-          items: json,
-          isLoaded: true,
+      .then(result => {
+        // this.setState({
+        //   items: json,
+        //   isLoaded: true,
 
-        })
+        // })
+
+        const restaurants = result.map(item => {
+          return item;
+        });
+
+        this.setState({
+          items: restaurants,
+          isLoaded: true,
+        });
       }).catch((err) => {
         console.log(err);
       });
+
+
 
   }
 
@@ -83,7 +94,7 @@ class App extends React.Component {
             <div className='col-mid-12 bg-white'>
               <div className='container'>
                 <SearchRestaurants />
-                <AllRestaurants />
+                <AllRestaurants restaurants={this.state.items} />
 
               </div>
             </div>
