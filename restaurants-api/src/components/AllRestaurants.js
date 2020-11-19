@@ -4,14 +4,23 @@ class AllRestaurants extends Component {
     render() {
 
         return (
-            <div>
-                <ul>
-                    {this.props.restaurants.map(item => (
-                        <li key={item.id}>
-                            Name: {item.name} | City: {item.city} | State: {item.state} | Phone Number: {item.telephone} | Genre: {item.genre}
-                        </li>
-                    ))}
-                </ul>
+            <div className="mb-3 item-list" >
+                {this.props.restaurants.map(item => (
+                    <div key={item.id}>
+
+                        <div className='container text-center'>
+                            <h3>Name: {item.name} | City: {item.city} | State: {item.state} </h3>
+                        </div>
+                        <ul>
+                            <li >
+                                Phone Number: {item.telephone} | Genre: {item.genre}
+                            </li>
+                        </ul>
+                    </div>
+
+
+                ))}
+
             </div>
         )
     }
