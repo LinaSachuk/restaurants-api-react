@@ -21,19 +21,27 @@ class App extends React.Component {
       isLoaded: false,
       orderBy: 'name',
       orderDir: 'asc',
+      byState: '',
+      queryText: ''
 
     };
     this.filterByState = this.filterByState.bind(this);
+    this.searchRestaurants = this.searchRestaurants.bind(this);
 
   }
 
   filterByState(byState) {
     this.setState({
-      items: this.state.items.filter(item => item.state == byState)
-
+      items: this.state.items.filter(item => item.state == byState),
+      byState: byState
     });
   }
 
+  searchRestaurants(guery) {
+    this.setState({
+      queryText: guery
+    })
+  }
 
 
   /**
@@ -42,7 +50,6 @@ class App extends React.Component {
    * Fetch json array of objects from given url and update state.
    */
   componentDidMount() {
-
     fetch("https://code-challenge.spectrumtoolbox.com/api/restaurants", {
       headers: {
         Authorization: "Api-Key q3MNxtfep8Gt",
@@ -50,12 +57,8 @@ class App extends React.Component {
     })
       .then(res => res.json())
       .then(result => {
-        // this.setState({
-        //   items: json,
-        //   isLoaded: true,
 
-        // })
-
+        // Get list of restaurants
         const restaurants = result.map(item => {
           return item;
         });
@@ -89,8 +92,9 @@ class App extends React.Component {
   render() {
 
     // Get all items
-    const { isLoaded, items, states } = this.state;
+    const { isLoaded, items, states, byState } = this.state;
     console.log(items);
+    console.log(byState)
 
 
 
@@ -105,7 +109,7 @@ class App extends React.Component {
       order = -1;
     }
 
-    sortedItems.sort((a, b) => {
+    sortedItems = sortedItems.sort((a, b) => {
       if (a[this.state.orderBy].toLowerCase() <
         b[this.state.orderBy].toLowerCase()
       ) {
@@ -113,6 +117,27 @@ class App extends React.Component {
       } else {
         return 1 * order;
       }
+    }).filter(eachItem => {
+      // search results should match either the name, city, or genre.
+      return (
+
+        eachItem['name']
+          .toLowerCase()
+          .includes(this.state.queryText.toLowerCase()) ||
+        eachItem['city']
+          .toLowerCase()
+          .includes(this.state.queryText.toLowerCase()) ||
+        eachItem['genre']
+          .toLowerCase()
+          .includes(this.state.queryText.toLowerCase())
+        //  || eachItem['state']
+        //   .toLowerCase()
+        //   .includes(this.state.byState.toLowerCase()) 
+
+
+
+
+      );
     });
 
 
@@ -132,8 +157,9 @@ class App extends React.Component {
     // telephone: "(301) 965-4000"
     // website: "http://www.gaylordnational.com"
     // zip: "20745"
-    if (!isLoaded)
-      return <div>Loading...</div>;
+    // if (!isLoaded)
+    //   return <div>Loading...</div>;
+
 
     return (
 
@@ -144,7 +170,10 @@ class App extends React.Component {
               <div className='container'>
                 <SearchRestaurants
                   states={states}
-                  filterByState={this.filterByState} />
+                  byState={this.state.byState}
+                  filterByState={this.filterByState}
+                  searchRestaurants={this.searchRestaurants}
+                />
                 <AllRestaurants restaurants={sortedItems} />
 
               </div>
