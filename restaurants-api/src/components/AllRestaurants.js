@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FaBeer } from "react-icons/fa";
 
 class AllRestaurants extends Component {
     render() {
@@ -9,6 +10,7 @@ class AllRestaurants extends Component {
                     <div key={item.id}>
 
                         <div className='container text-center'>
+                            <FaBeer />
                             <h3>Name: {item.name} | City: {item.city} | State: {item.state} </h3>
                         </div>
                         <ul>

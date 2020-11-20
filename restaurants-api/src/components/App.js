@@ -13,15 +13,28 @@ class App extends React.Component {
 
 
   constructor(props) {
-
     super(props);
 
     this.state = {
       items: [],
-      isLoaded: false
-    }
+      states: [],
+      isLoaded: false,
+      orderBy: 'name',
+      orderDir: 'asc',
+
+    };
+    this.filterByState = this.filterByState.bind(this);
 
   }
+
+  filterByState(byState) {
+    this.setState({
+      items: this.state.items.filter(item => item.state == byState)
+
+    });
+  }
+
+
 
   /**
    * componentDidMount
@@ -47,8 +60,17 @@ class App extends React.Component {
           return item;
         });
 
+        // Get a list of unique and sorted states
+        const states = result.map(item => item.state)
+        let sortedStates = states
+        let uniqueAndSortedStates = [...new Set(sortedStates)].sort()
+        console.log(uniqueAndSortedStates)
+
+
+
         this.setState({
           items: restaurants,
+          states: uniqueAndSortedStates,
           isLoaded: true,
         });
       }).catch((err) => {
@@ -66,8 +88,35 @@ class App extends React.Component {
    */
   render() {
 
-    const { isLoaded, items } = this.state;
+    // Get all items
+    const { isLoaded, items, states } = this.state;
     console.log(items);
+
+
+
+
+    // Sort items by Name in 'asc' order
+    let order;
+    let sortedItems = this.state.items;
+
+    if (this.state.orderDir === 'asc') {
+      order = 1;
+    } else {
+      order = -1;
+    }
+
+    sortedItems.sort((a, b) => {
+      if (a[this.state.orderBy].toLowerCase() <
+        b[this.state.orderBy].toLowerCase()
+      ) {
+        return -1 * order;
+      } else {
+        return 1 * order;
+      }
+    });
+
+
+
     // A user should be able to see a table with the name, city, state, phone number, and genres for each restaurant.
     // address1: "201 Waterfront St"
     // attire: "business casual"
@@ -93,8 +142,10 @@ class App extends React.Component {
           <div className='row'>
             <div className='col-mid-12 bg-white'>
               <div className='container'>
-                <SearchRestaurants />
-                <AllRestaurants restaurants={this.state.items} />
+                <SearchRestaurants
+                  states={states}
+                  filterByState={this.filterByState} />
+                <AllRestaurants restaurants={sortedItems} />
 
               </div>
             </div>
