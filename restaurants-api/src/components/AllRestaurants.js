@@ -9,6 +9,11 @@ class AllRestaurants extends Component {
 
         return (
             <div className="mb-3 item-list" >
+                {isEmpty ? (
+                    <div>No restaurants found...</div>
+                ) : " "
+                }
+
                 {this.props.restaurants.map(item => (
                     <div key={item.id}>
 
