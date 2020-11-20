@@ -32,7 +32,7 @@ class App extends React.Component {
 
   filterByState(byState) {
     this.setState({
-      items: this.state.items.filter(item => item.state == byState),
+      items: (byState === 'All' ? this.state.items : this.state.items.filter(item => item.state === byState)),
       byState: byState
     });
   }
@@ -67,6 +67,7 @@ class App extends React.Component {
         const states = result.map(item => item.state)
         let sortedStates = states
         let uniqueAndSortedStates = [...new Set(sortedStates)].sort()
+        uniqueAndSortedStates.unshift("All");
         console.log(uniqueAndSortedStates)
 
 
@@ -140,7 +141,7 @@ class App extends React.Component {
       );
     });
 
-
+    console.log(sortedItems)
 
     // A user should be able to see a table with the name, city, state, phone number, and genres for each restaurant.
     // address1: "201 Waterfront St"
@@ -157,8 +158,8 @@ class App extends React.Component {
     // telephone: "(301) 965-4000"
     // website: "http://www.gaylordnational.com"
     // zip: "20745"
-    // if (!isLoaded)
-    //   return <div>Loading...</div>;
+    if (!isLoaded)
+      return <div>Loading...</div>;
 
 
     return (

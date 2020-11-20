@@ -4,6 +4,9 @@ import { FaBeer } from "react-icons/fa";
 class AllRestaurants extends Component {
     render() {
 
+        const isEmpty = this.props.restaurants.length === 0;
+        console.log(isEmpty)
+
         return (
             <div className="mb-3 item-list" >
                 {this.props.restaurants.map(item => (

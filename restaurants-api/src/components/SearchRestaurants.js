@@ -33,6 +33,7 @@ class SearchRestaurants extends Component {
                                         key={index}
                                         className={'sort-by dropdown-item ' + (this.props.byState === s ? 'active' : '')}
                                         onClick={() => this.props.filterByState(s)}
+
                                         href="#" >
 
                                         <span>{s}</span>
