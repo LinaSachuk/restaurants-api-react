@@ -21,7 +21,7 @@ class App extends React.Component {
       isLoaded: false,
       orderBy: 'name',
       orderDir: 'asc',
-      byState: '',
+      byState: 'All',
       queryText: ''
 
     };
@@ -32,7 +32,6 @@ class App extends React.Component {
 
   filterByState(byState) {
     this.setState({
-      items: (byState === 'All' ? this.state.items : this.state.items.filter(item => item.state === byState)),
       byState: byState
     });
   }
@@ -143,6 +142,18 @@ class App extends React.Component {
 
     console.log(sortedItems)
 
+    let sortedFilteredItems = ''
+    if (this.state.byState === 'All') {
+      sortedFilteredItems = this.state.items;
+    } else {
+      sortedFilteredItems = sortedItems.filter(item => item.state === this.state.byState);
+
+    }
+
+
+
+
+    console.log(sortedFilteredItems)
     // A user should be able to see a table with the name, city, state, phone number, and genres for each restaurant.
     // address1: "201 Waterfront St"
     // attire: "business casual"
@@ -175,7 +186,7 @@ class App extends React.Component {
                   filterByState={this.filterByState}
                   searchRestaurants={this.searchRestaurants}
                 />
-                <AllRestaurants restaurants={sortedItems} />
+                <AllRestaurants restaurants={sortedFilteredItems} />
 
               </div>
             </div>
