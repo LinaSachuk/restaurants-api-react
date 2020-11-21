@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../css/App.css';
 
 import SearchRestaurants from './SearchRestaurants';
@@ -10,6 +10,7 @@ import AllRestaurants from './AllRestaurants';
  * Simple react js fetch example
  */
 class App extends React.Component {
+
 
 
   constructor(props) {
@@ -95,8 +96,6 @@ class App extends React.Component {
       }).catch((err) => {
         console.log(err);
       });
-
-
 
   }
 
