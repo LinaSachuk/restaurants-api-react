@@ -18,14 +18,17 @@ class App extends React.Component {
     this.state = {
       items: [],
       states: [],
+      genres: [],
       isLoaded: false,
       orderBy: 'name',
       orderDir: 'asc',
       byState: 'All',
+      byGenre: 'All',
       queryText: ''
 
     };
     this.filterByState = this.filterByState.bind(this);
+    this.filterByGenre = this.filterByGenre.bind(this);
     this.searchRestaurants = this.searchRestaurants.bind(this);
 
   }
@@ -33,6 +36,12 @@ class App extends React.Component {
   filterByState(byState) {
     this.setState({
       byState: byState
+    });
+  }
+
+  filterByGenre(byGenre) {
+    this.setState({
+      byGenre: byGenre
     });
   }
 
@@ -64,16 +73,23 @@ class App extends React.Component {
 
         // Get a list of unique and sorted states
         const states = result.map(item => item.state)
-        let sortedStates = states
-        let uniqueAndSortedStates = [...new Set(sortedStates)].sort()
+        let uniqueAndSortedStates = [...new Set(states)].sort()
         uniqueAndSortedStates.unshift("All");
-        console.log(uniqueAndSortedStates)
+        // console.log(uniqueAndSortedStates)
+
+        // Get a list of unique genres
+        const genres = result.map(item => item.genre.split(",")).flat()
+        let uniqueAndSortedGenres = [...new Set(genres)].sort()
+        uniqueAndSortedGenres.unshift("All")
+
+        // console.log(uniqueAndSortedGenres)
 
 
 
         this.setState({
           items: restaurants,
           states: uniqueAndSortedStates,
+          genres: uniqueAndSortedGenres,
           isLoaded: true,
         });
       }).catch((err) => {
@@ -92,9 +108,10 @@ class App extends React.Component {
   render() {
 
     // Get all items
-    const { isLoaded, items, states, byState } = this.state;
+    const { isLoaded, items, states, genres } = this.state;
     console.log(items);
-    console.log(byState)
+    console.log(states)
+    console.log(genres)
 
 
 
@@ -140,14 +157,21 @@ class App extends React.Component {
       );
     });
 
-    console.log(sortedItems)
+
 
     let sortedFilteredItems = ''
     if (this.state.byState === 'All') {
-      sortedFilteredItems = this.state.items;
+      sortedFilteredItems = sortedItems;
     } else {
       sortedFilteredItems = sortedItems.filter(item => item.state === this.state.byState);
+    }
 
+    let finalItems = ''
+    if (this.state.byGenre === 'All') {
+      sortedFilteredItems = sortedFilteredItems;
+    } else {
+      sortedFilteredItems = sortedFilteredItems.filter(item => item.genre.toLowerCase()
+        .includes(this.state.byGenre.toLowerCase()));
     }
 
 
@@ -172,6 +196,7 @@ class App extends React.Component {
     if (!isLoaded)
       return <div>Loading...</div>;
 
+    console.log(this.state.byState)
 
     return (
 
@@ -182,8 +207,14 @@ class App extends React.Component {
               <div className='container'>
                 <SearchRestaurants
                   states={states}
+                  genres={genres}
+
                   byState={this.state.byState}
+                  byGenre={this.state.byGenre}
+
+
                   filterByState={this.filterByState}
+                  filterByGenre={this.filterByGenre}
                   searchRestaurants={this.searchRestaurants}
                 />
                 <AllRestaurants restaurants={sortedFilteredItems} />
