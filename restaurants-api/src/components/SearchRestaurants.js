@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 
 class SearchRestaurants extends Component {
+
+
     render() {
         let byState = this.props.byState;
         console.log(byState)
@@ -35,10 +37,9 @@ class SearchRestaurants extends Component {
                                             key={index}
                                             className={'sort-by dropdown-item ' + (this.props.byState === s ? 'active' : '')}
                                             onClick={() => this.props.filterByState(s)}
-
                                             href="#" >
 
-                                            <span>{s}</span>
+                                            {s}
                                         </button>
 
                                     ))}

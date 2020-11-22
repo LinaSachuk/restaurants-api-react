@@ -3,6 +3,8 @@ import '../css/App.css';
 
 import SearchRestaurants from './SearchRestaurants';
 import AllRestaurants from './AllRestaurants';
+import Pagination from './Pagination';
+
 
 /**
  * App
@@ -10,8 +12,6 @@ import AllRestaurants from './AllRestaurants';
  * Simple react js fetch example
  */
 class App extends React.Component {
-
-
 
   constructor(props) {
     super(props);
@@ -28,7 +28,6 @@ class App extends React.Component {
       queryText: '',
       currentPage: 1,
       itemsPerPage: 10
-
     };
 
 
@@ -38,6 +37,13 @@ class App extends React.Component {
     this.setCurrentPage = this.setCurrentPage.bind(this);
 
   }
+
+  setCurrentPage(currentPage) {
+    this.setState({
+      currentPage: currentPage
+    });
+  }
+
 
   filterByState(byState) {
     this.setState({
@@ -54,15 +60,8 @@ class App extends React.Component {
   searchRestaurants(guery) {
     this.setState({
       queryText: guery
-    })
-  }
-
-  setCurrentPage(page) {
-    this.state = ({
-      currentPage: page
     });
   }
-
 
 
   /**
@@ -108,8 +107,10 @@ class App extends React.Component {
       }).catch((err) => {
         console.log(err);
       });
-
   }
+
+
+
 
   /**
    * render
@@ -120,11 +121,6 @@ class App extends React.Component {
 
     // Get all items
     const { isLoaded, items, states, genres, itemsPerPage, currentPage } = this.state;
-    console.log(items);
-    console.log(states)
-    console.log(genres)
-
-
 
 
     // Sort items by Name in 'asc' order
@@ -158,26 +154,17 @@ class App extends React.Component {
         eachItem['genre']
           .toLowerCase()
           .includes(this.state.queryText.toLowerCase())
-        //  || eachItem['state']
-        //   .toLowerCase()
-        //   .includes(this.state.byState.toLowerCase()) 
-
-
-
-
       );
     });
 
-
-
+    // Filter by State
     let sortedFilteredItems = ''
     if (this.state.byState === 'All') {
       sortedFilteredItems = sortedItems;
     } else {
       sortedFilteredItems = sortedItems.filter(item => item.state === this.state.byState);
     }
-
-    let finalItems = ''
+    // Filter by Genre
     if (this.state.byGenre === 'All') {
       sortedFilteredItems = sortedFilteredItems;
     } else {
@@ -185,11 +172,7 @@ class App extends React.Component {
         .includes(this.state.byGenre.toLowerCase()));
     }
 
-
-
-
     console.log(sortedFilteredItems)
-    // A user should be able to see a table with the name, city, state, phone number, and genres for each restaurant.
     // address1: "201 Waterfront St"
     // attire: "business casual"
     // city: "Oxon Hill"
@@ -208,9 +191,14 @@ class App extends React.Component {
       return <div>Loading...</div>;
 
     // Get current items
-    const indexOfLastItem = currentPage * itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = sortedFilteredItems.slice(indexOfFirstItem, indexOfLastItem)
+    let indexOfLastItem = this.state.currentPage * itemsPerPage;
+    let indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    let currentItems = sortedFilteredItems.slice(indexOfFirstItem, indexOfLastItem)
+    // console.log('currentPage: ', this.state.currentPage)
+    // console.log('indexOfFirstItem: ', indexOfFirstItem)
+    // console.log('indexOfLastItem: ', indexOfLastItem)
+    // console.log('currentItems: ', currentItems)
+
 
 
     return (
@@ -227,12 +215,20 @@ class App extends React.Component {
                   byState={this.state.byState}
                   byGenre={this.state.byGenre}
 
-
                   filterByState={this.filterByState}
                   filterByGenre={this.filterByGenre}
                   searchRestaurants={this.searchRestaurants}
                 />
-                <AllRestaurants restaurants={currentItems} />
+                <AllRestaurants restaurants={currentItems}
+                />
+                <Pagination
+                  currentPage={this.state.currentPage}
+                  itemsPerPage={itemsPerPage}
+                  totalItems={sortedFilteredItems.length}
+
+                  setCurrentPage={this.setCurrentPage}
+
+                />
 
               </div>
             </div>
