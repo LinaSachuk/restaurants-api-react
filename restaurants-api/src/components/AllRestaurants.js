@@ -13,18 +13,18 @@ class AllRestaurants extends Component {
         console.log(isEmpty)
         const data = this.props.restaurants;
         // console.log(data)
-        const columns = ['name', 'city', 'state', 'telephone', 'genre']
+        const columns = ['Name', 'City', 'State', 'Telephone', 'Genre']
         return (
             <div className="mb-3 item-list" >
                 {isEmpty ? (
                     <div>No restaurants found...</div>
                 ) : " "
                 }
-                <table cellPadding={5} cellSpacing={5} className="table table-striped table-hover">
+                <table cellPadding={5} cellSpacing={5} className="table table-striped  table-responsive table-hover">
+                    <caption>List of users</caption>
                     <thead>
-                        <tr>
+                        <tr className="bg-primary">
                             {columns.map((heading, i) => <th key={i}>{heading}</th>)}
-
                         </tr>
                     </thead>
                     <tbody>
@@ -33,7 +33,7 @@ class AllRestaurants extends Component {
 
                                 {columns.map((column, i) => (
                                     <td key={i}>
-                                        {item[column]}
+                                        {item[column.toLowerCase()]}
                                     </td>
                                 ))}
                             </tr>

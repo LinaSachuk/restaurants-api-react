@@ -25,12 +25,17 @@ class App extends React.Component {
       orderDir: 'asc',
       byState: 'All',
       byGenre: 'All',
-      queryText: ''
+      queryText: '',
+      currentPage: 1,
+      itemsPerPage: 10
 
     };
+
+
     this.filterByState = this.filterByState.bind(this);
     this.filterByGenre = this.filterByGenre.bind(this);
     this.searchRestaurants = this.searchRestaurants.bind(this);
+    this.setCurrentPage = this.setCurrentPage.bind(this);
 
   }
 
@@ -51,6 +56,13 @@ class App extends React.Component {
       queryText: guery
     })
   }
+
+  setCurrentPage(page) {
+    this.state = ({
+      currentPage: page
+    });
+  }
+
 
 
   /**
@@ -107,7 +119,7 @@ class App extends React.Component {
   render() {
 
     // Get all items
-    const { isLoaded, items, states, genres } = this.state;
+    const { isLoaded, items, states, genres, itemsPerPage, currentPage } = this.state;
     console.log(items);
     console.log(states)
     console.log(genres)
@@ -195,7 +207,11 @@ class App extends React.Component {
     if (!isLoaded)
       return <div>Loading...</div>;
 
-    console.log(this.state.byState)
+    // Get current items
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = sortedFilteredItems.slice(indexOfFirstItem, indexOfLastItem)
+
 
     return (
 
@@ -216,7 +232,7 @@ class App extends React.Component {
                   filterByGenre={this.filterByGenre}
                   searchRestaurants={this.searchRestaurants}
                 />
-                <AllRestaurants restaurants={sortedFilteredItems} />
+                <AllRestaurants restaurants={currentItems} />
 
               </div>
             </div>
