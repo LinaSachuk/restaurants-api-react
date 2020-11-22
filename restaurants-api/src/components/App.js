@@ -47,19 +47,22 @@ class App extends React.Component {
 
   filterByState(byState) {
     this.setState({
-      byState: byState
+      byState: byState,
+      currentPage: 1
     });
   }
 
   filterByGenre(byGenre) {
     this.setState({
-      byGenre: byGenre
+      byGenre: byGenre,
+      currentPage: 1
     });
   }
 
   searchRestaurants(guery) {
     this.setState({
-      queryText: guery
+      queryText: guery,
+      currentPage: 1
     });
   }
 
