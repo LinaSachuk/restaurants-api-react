@@ -1,10 +1,23 @@
 import React, { Component } from 'react';
 import { FaBeer } from "react-icons/fa";
-// import styled from 'styled-components'
+import styled from 'styled-components';
+
+import RestaurantInfo from './RestaurantInfo';
+
+const Table = styled.table`
+width: 100%;
+margin: 0 1%;
+justify-content: center;
+display: block;
+align-items: center;
+font-size: 1rem;
+
+
+
+`// import styled from 'styled-components'
 
 
 class AllRestaurants extends Component {
-
 
     render() {
 
@@ -16,31 +29,36 @@ class AllRestaurants extends Component {
         return (
             <div className="mb-3 item-list" >
                 {isEmpty ? (
-                    <div>No restaurants found...</div>
-                ) : " "
-                }
-                <table cellPadding={5} cellSpacing={5} className="table table-striped  table-responsive table-hover">
-                    <thead>
-                        <tr className="bg-primary">
-                            {columns.map((heading, i) => <th key={i}>{heading}</th>)}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {data.map((item) => (
-                            <tr key={item.id}>
+                    <div>No results were found...</div>
+                ) :
 
-                                {columns.map((column, i) => (
-                                    <td key={i}>
-                                        {item[column.toLowerCase()]}
-                                    </td>
-                                ))}
+                    <Table cellPadding={5} cellSpacing={5} className="table table-striped  table-responsive table-hover table-fit">
+
+                        <thead>
+                            <tr className="bg-primary">
+                                {columns.map((heading, i) => <th key={i}>{heading}</th>)}
                             </tr>
-                        ))}
+                        </thead>
+                        <tbody>
+                            {data.map((item) => (
+                                <tr
+                                    key={item.id}
+                                    onClick={event => window.location.href = item.website}
+                                >
 
-                    </tbody>
-                </table>
+                                    {columns.map((column, i) => (
+                                        <td key={i}>
+                                            {item[column.toLowerCase()]}
+                                        </td>
+                                    ))}
 
+                                </tr>
+                            ))}
 
+                        </tbody>
+                    </Table>
+
+                }
 
 
                 {/* {this.props.restaurants.map(item => (

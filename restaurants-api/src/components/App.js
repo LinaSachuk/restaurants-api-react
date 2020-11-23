@@ -68,6 +68,8 @@ class App extends React.Component {
   }
 
 
+
+
   /**
    * componentDidMount
    *
@@ -223,7 +225,9 @@ class App extends React.Component {
                   filterByGenre={this.filterByGenre}
                   searchRestaurants={this.searchRestaurants}
                 />
-                <AllRestaurants restaurants={currentItems}
+                <AllRestaurants
+                  restaurants={currentItems}
+
                 />
                 <Pagination
                   currentPage={this.state.currentPage}

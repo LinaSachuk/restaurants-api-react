@@ -1,6 +1,18 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
+
+
+const Search = styled.div`
+width: 100%;
+margin: 0 auto;
+`
+
+const Filter = styled.div`
+width: 100%;
+margin: 0 1%;
+`
+
 class SearchRestaurants extends Component {
 
 
@@ -10,7 +22,7 @@ class SearchRestaurants extends Component {
         let byGenre = this.props.byGenre;
         console.log(byGenre)
         return (
-            <div className="search-restaurants row justify-content-center my-4">
+            <Search className="search-restaurants row justify-content-center my-4">
                 <div className="col-md-10">
                     <div className="input-group">
                         <input
@@ -21,7 +33,7 @@ class SearchRestaurants extends Component {
                             onChange={e => this.props.searchRestaurants(e.target.value)}
                         />
                         <div className="input-group-append">
-                            <div className="filter-by-state">
+                            <Filter className="filter-by-state">
                                 <button
                                     type="button"
                                     className="btn btn-primary dropdown-toggle"
@@ -46,13 +58,13 @@ class SearchRestaurants extends Component {
                                     ))}
                                 </div>
 
-                            </div>
+                            </Filter>
 
 
 
 
 
-                            <div className='filter-by-genre'>
+                            <Filter className='filter-by-genre'>
 
                                 <button
                                     type="button"
@@ -77,7 +89,7 @@ class SearchRestaurants extends Component {
 
                                     ))}
                                 </div>
-                            </div>
+                            </Filter>
 
 
 
@@ -85,7 +97,7 @@ class SearchRestaurants extends Component {
                         </div>
                     </div>
                 </div>
-            </div >
+            </Search >
 
         );
     }
