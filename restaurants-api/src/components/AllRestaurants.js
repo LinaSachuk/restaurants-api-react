@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { FaBeer } from "react-icons/fa";
 import styled from 'styled-components';
 
-import RestaurantInfo from './RestaurantInfo';
 
 const Table = styled.table`
 width: 100%;
@@ -12,9 +11,7 @@ display: block;
 align-items: center;
 font-size: 1rem;
 
-
-
-`// import styled from 'styled-components'
+`
 
 
 class AllRestaurants extends Component {
@@ -31,7 +28,6 @@ class AllRestaurants extends Component {
                 {isEmpty ? (
                     <div>No results were found...</div>
                 ) :
-
                     <Table cellPadding={5} cellSpacing={5} className="table table-striped  table-responsive table-hover table-fit">
 
                         <thead>
