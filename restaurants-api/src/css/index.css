@@ -1,6 +1,14 @@
 body {
+  margin:0;
+  padding:0;
   font-weight: 200;
-  background-color: #337ab7;
+  background-color: #65a3da;
+}
+
+header,
+footer{
+  display: flex;
+  justify-content: center;
 }
 
 header a , 
@@ -13,7 +21,13 @@ footer {
 }
 
 .bg-primary ,
-.btn-primary {
-  background-color: #377bb5 !important;
+.btn-primary{
+  background-color: #65a3da !important;
   border: inherit;
+}
+
+
+.active {
+  background-color: #65a3da !important;
+
 }

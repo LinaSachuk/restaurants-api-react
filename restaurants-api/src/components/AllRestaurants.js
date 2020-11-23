@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { FaBeer } from "react-icons/fa";
 // import styled from 'styled-components'
-// import { useTable, usePagination } from 'react-table';
 
 
 class AllRestaurants extends Component {

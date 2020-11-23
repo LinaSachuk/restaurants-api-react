@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
 
 class SearchRestaurants extends Component {
 
@@ -91,3 +92,4 @@ class SearchRestaurants extends Component {
 }
 
 export default SearchRestaurants;
+

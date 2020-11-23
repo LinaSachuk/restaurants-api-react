@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../css/App.css';
 
+
 import SearchRestaurants from './SearchRestaurants';
 import AllRestaurants from './AllRestaurants';
 import Pagination from './Pagination';
