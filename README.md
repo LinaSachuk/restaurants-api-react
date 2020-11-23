@@ -22,3 +22,8 @@ while a search value is present.
 • Reusable components
 • Styling follows a convention/pattern and is well organized
 • Full Git history with atomic commits
+## Stretch goals:
+• Deployed application : https://restaurants-api-react.netlify.app/
+• Table row click shows additional information
+
+

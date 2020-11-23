@@ -39,7 +39,6 @@ class Pagination extends Component {
                             className={'page-item ' + (this.props.currentPage === number ? 'active' : '')}>
                             <a
                                 onClick={() => this.props.setCurrentPage(number)}
-                                href="!#"
                                 className='page-link'
                             >
                                 {number}
